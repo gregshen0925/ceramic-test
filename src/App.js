@@ -15,6 +15,15 @@ function App() {
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
   const [loaded, setLoaded] = useState(false)
+
+  async function connect() {
+    const addresses = await window.ethereum.request({
+      method: 'eth_requestAccounts'
+    })
+    return addresses
+  }
+
+  
   
   return (
     <div className="App">
