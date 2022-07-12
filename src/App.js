@@ -23,7 +23,24 @@ function App() {
     return addresses
   }
 
-  
+  async function readProfile() {
+    const [address] = await connect()
+    const ceramic = new CeramicClient(endpoint)
+    const idx = new IDX({ ceramic })
+
+    try {
+      const data = await idx.get(
+        'basicProfile',
+        `${address}@eip155:1`
+      )
+      console.log('data: ', data)
+      if (data.name) setName(data.name)
+      if (data.avatar) setImage(data.avatar)
+    } catch (error) {
+      console.log('error: ', error)
+      setLoaded(true)
+    }
+  }
   
   return (
     <div className="App">
