@@ -2,7 +2,7 @@ import './App.css';
 import { useState } from 'react'
 
 import { CeramicClient } from '@ceramicnetwork/http-client'
-import { ThreeIdResolver } from '@ceramicnetwork/3id-did-resolver'
+import { getResolver } from '@ceramicnetwork/3id-did-resolver'
 
 import { EthereumAuthProvider, ThreeIdConnect } from '@3id/connect'
 import { DID } from 'dids'
@@ -52,7 +52,7 @@ function App() {
     const did = new DID({
       provider: threeIdConnect.getDidProvider(),
       resolver: {
-        ...ThreeIdResolver.getResolver(ceramic)
+        ...getResolver(ceramic)
       }
     })
 
@@ -76,8 +76,8 @@ function App() {
       <button onClick={updateProfile}>Set Profile</button>
       <button onClick={readProfile}>Read Profile</button>
 
-      { name && <h3>{name}</h3> }
-      { image && <img style={{ width: '400px' }} src={image} /> }
+      {name && <h3>{name}</h3>}
+      {image && <img style={{ width: '400px' }} src={image} />}
       {(!image && !name && loaded) && <h4>No profile, please create one...</h4>}
     </div>
   );
