@@ -12,7 +12,12 @@ const endpoint = "https://ceramic-clay.3boxlabs.com"
 
 function App() {
   const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
   const [image, setImage] = useState('')
+  const [birthday, setBirthday] = useState('')
+  const [gender, setGender] = useState('')
+  const [sexOrientation, setSexOrientation] = useState('')
+  const [randomNumber, setNumber] = useState('')
   const [loaded, setLoaded] = useState(false)
 
   async function connect() {
@@ -34,7 +39,11 @@ function App() {
       )
       console.log('data: ', data)
       if (data.name) setName(data.name)
+      if (data.description) setImage(data.description)
       if (data.avatar) setImage(data.avatar)
+      if (data.birthday) setImage(data.birthday)
+      if (data.gender) setImage(data.gender)
+
     } catch (error) {
       console.log('error: ', error)
       setLoaded(true)
@@ -63,7 +72,10 @@ function App() {
 
     await idx.set('basicProfile', {
       name,
-      avatar: image
+      description,
+      avatar: image,
+      birthday,
+      gender,
     })
 
     console.log("Profile updated!")
@@ -72,9 +84,16 @@ function App() {
   return (
     <div className="App">
       <input placeholder="Name" onChange={e => setName(e.target.value)} />
+      <input placeholder="Description" onChange={e => setDescription(e.target.value)} />
       <input placeholder="Profile Image" onChange={e => setImage(e.target.value)} />
+      <input placeholder="Birthday" onChange={e => setBirthday(e.target.value)} />
+      <input placeholder="Gender" onChange={e => setGender(e.target.value)} />
+      <input placeholder="Sex Orientation" onChange={e => setSexOrientation(e.target.value)} />
+      <input placeholder="Random Number" onChange={e => setNumber(e.target.value)} />
       <button onClick={updateProfile}>Set Profile</button>
       <button onClick={readProfile}>Read Profile</button>
+      <button onClick={connect}>Connect Wallet</button>
+
 
       {name && <h3>{name}</h3>}
       {image && <img style={{ width: '400px' }} src={image} />}
