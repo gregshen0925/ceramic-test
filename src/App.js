@@ -39,10 +39,13 @@ function App() {
       )
       console.log('data: ', data)
       if (data.name) setName(data.name)
-      if (data.description) setImage(data.description)
+      if (data.description) setDescription(data.description)
       if (data.avatar) setImage(data.avatar)
-      if (data.birthday) setImage(data.birthday)
-      if (data.gender) setImage(data.gender)
+      if (data.birthday) setBirthday(data.birthday)
+      if (data.gender) setGender(data.gender)
+      if (data.sexOrientation) setSexOrientation(data.sexOrientation)
+      if (data.randomNumber) setNumber(data.randomNumber)
+
 
     } catch (error) {
       console.log('error: ', error)
@@ -76,6 +79,8 @@ function App() {
       avatar: image,
       birthday,
       gender,
+      sexOrientation,
+      randomNumber,
     })
 
     console.log("Profile updated!")
@@ -95,13 +100,13 @@ function App() {
       <button onClick={connect}>Connect Wallet</button>
 
 
-      {name && <h3>{name}</h3>}
-      {name && <h3>{description}</h3>}
+      {name && <h3>Name: {name}</h3>}
+      {name && <h3>Description: {description}</h3>}
       {image && <img style={{ width: '400px' }} src={image} />}
-      {name && <h3>{birthday}</h3>}
-      {name && <h3>{gender}</h3>}
-      {name && <h3>{sexOrientation}</h3>}
-      {name && <h3>{randomNumber}</h3>}
+      {name && <h3>Birthday: {birthday}</h3>}
+      {name && <h3>Gender: {gender}</h3>}
+      {name && <h3>Sex Orientation: {sexOrientation}</h3>}
+      {name && <h3>Random Number: {randomNumber}</h3>}
       {(!image && !name && loaded) && <h4>No profile, please create one...</h4>}
     </div>
   );
