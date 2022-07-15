@@ -96,7 +96,12 @@ function App() {
 
 
       {name && <h3>{name}</h3>}
+      {name && <h3>{description}</h3>}
       {image && <img style={{ width: '400px' }} src={image} />}
+      {name && <h3>{birthday}</h3>}
+      {name && <h3>{gender}</h3>}
+      {name && <h3>{sexOrientation}</h3>}
+      {name && <h3>{randomNumber}</h3>}
       {(!image && !name && loaded) && <h4>No profile, please create one...</h4>}
     </div>
   );
