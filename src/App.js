@@ -12,13 +12,14 @@ import { IDX } from '@ceramicstudio/idx'
 const endpoint = "https://ceramic-clay.3boxlabs.com"
 
 function App() {
+  const [counts, setCounts] = useState('')
   const [name, setName] = useState('')
   const [info, setInfo] = useState('')
-  // const [image, setImage] = useState('')
-  // const [birthday, setBirthday] = useState('')
-  // const [gender, setGender] = useState('')
-  // const [sexOrientation, setSexOrientation] = useState('')
-  // const [randomNumber, setNumber] = useState('')
+  const [description, setDescription] = useState('')
+  const [image, setImage] = useState('')
+  const [birthday, setBirthday] = useState('')
+  const [gender, setGender] = useState('')
+  const [sexOrientation, setSexOrientation] = useState('')
   const [loaded, setLoaded] = useState(false)
   const [addressToRead, setAddressToRead] = useState('')
 
@@ -33,10 +34,10 @@ function App() {
   async function readProfile() {
     const aliases = {
       schemas: {
-        greg6: 'ceramic://k3y52l7qbv1frxhj4d1ryrt31p3iqgd80ti8g1nccwcdps75pfqu2b5ipyoqe0sn4',
+        Dick: 'ceramic://k3y52l7qbv1fryozq1wi9xvepyhcqilrj5wr1a1e0jb30v9l91xldphbbna212kg0',
       },
       definitions: {
-        Greg6: 'kjzl6cwe1jw1472rit1356wmzig2xgw0u4ydqew3i6or08lp2x0llh3tvxgd9ow',
+        Profile3: 'kjzl6cwe1jw14bjt6ccp1k0ig8co6mbx8a68yqazzjjuhhj7ieri966bvzdf2tb',
       },
       tiles: {},
     }
@@ -46,19 +47,18 @@ function App() {
 
     try {
       const data = await idx.get(
-        'kjzl6cwe1jw1472rit1356wmzig2xgw0u4ydqew3i6or08lp2x0llh3tvxgd9ow',
+        'kjzl6cwe1jw14bjt6ccp1k0ig8co6mbx8a68yqazzjjuhhj7ieri966bvzdf2tb',
         `${address}@eip155:1`
       )
       console.log(`${address}@eip155:1`)
       console.log('data: ', data)
+      if (data.counts) setCounts(data.counts)
       if (data.name) setName(data.name)
-      if (data.info) setInfo(data.info)
-      // if (data.avatar) setImage(data.avatar)
-      // if (data.birthday) setBirthday(data.birthday)
-      // if (data.gender) setGender(data.gender)
-      // if (data.sexOrientation) setSexOrientation(data.sexOrientation)
-      // if (data.randomNumber) setNumber(data.randomNumber)
-
+      if (data.description) setDescription(data.description)
+      if (data.birthday) setBirthday(data.birthday)
+      if (data.avatar) setImage(data.avatar)
+      if (data.gender) setGender(data.gender)
+      if (data.sexOrientation) setSexOrientation(data.name)
 
     } catch (error) {
       console.log('error: ', error)
@@ -69,10 +69,10 @@ function App() {
   async function readAddressProfile() {
     const aliases = {
       schemas: {
-        greg6: 'ceramic://k3y52l7qbv1frxhj4d1ryrt31p3iqgd80ti8g1nccwcdps75pfqu2b5ipyoqe0sn4',
+        Dick: 'ceramic://k3y52l7qbv1fryozq1wi9xvepyhcqilrj5wr1a1e0jb30v9l91xldphbbna212kg0',
       },
       definitions: {
-        Greg6: 'kjzl6cwe1jw1472rit1356wmzig2xgw0u4ydqew3i6or08lp2x0llh3tvxgd9ow',
+        Profile3: 'kjzl6cwe1jw14bjt6ccp1k0ig8co6mbx8a68yqazzjjuhhj7ieri966bvzdf2tb',
       },
       tiles: {},
     }
@@ -85,18 +85,17 @@ function App() {
 
     try {
       const data = await idx.get(
-        'kjzl6cwe1jw1472rit1356wmzig2xgw0u4ydqew3i6or08lp2x0llh3tvxgd9ow',
+        'kjzl6cwe1jw14bjt6ccp1k0ig8co6mbx8a68yqazzjjuhhj7ieri966bvzdf2tb',
         `${addressToRead}@eip155:1`
       )
       console.log('data: ', data)
+      if (data.counts) setCounts(data.counts)
       if (data.name) setName(data.name)
-      if (data.info) setInfo(data.info)
-      // if (data.avatar) setImage(data.avatar)
-      // if (data.birthday) setBirthday(data.birthday)
-      // if (data.gender) setGender(data.gender)
-      // if (data.sexOrientation) setSexOrientation(data.sexOrientation)
-      // if (data.randomNumber) setNumber(data.randomNumber)
-
+      if (data.description) setDescription(data.description)
+      if (data.birthday) setBirthday(data.birthday)
+      if (data.avatar) setImage(data.avatar)
+      if (data.gender) setGender(data.gender)
+      if (data.sexOrientation) setSexOrientation(data.name)
 
     } catch (error) {
       console.log('error: ', error)
@@ -123,23 +122,24 @@ function App() {
     await ceramic.did.authenticate()
     const aliases = {
       schemas: {
-        greg6: 'ceramic://k3y52l7qbv1frxhj4d1ryrt31p3iqgd80ti8g1nccwcdps75pfqu2b5ipyoqe0sn4',
+        Dick: 'ceramic://k3y52l7qbv1fryozq1wi9xvepyhcqilrj5wr1a1e0jb30v9l91xldphbbna212kg0',
       },
       definitions: {
-        Greg6: 'kjzl6cwe1jw1472rit1356wmzig2xgw0u4ydqew3i6or08lp2x0llh3tvxgd9ow',
+        Profile3: 'kjzl6cwe1jw14bjt6ccp1k0ig8co6mbx8a68yqazzjjuhhj7ieri966bvzdf2tb',
       },
       tiles: {},
     }
     const idx = new IDX({ ceramic, aliases })
 
-    await idx.set('kjzl6cwe1jw1472rit1356wmzig2xgw0u4ydqew3i6or08lp2x0llh3tvxgd9ow', {
+
+    await idx.merge('kjzl6cwe1jw14bjt6ccp1k0ig8co6mbx8a68yqazzjjuhhj7ieri966bvzdf2tb', {
+      counts,
       name,
-      info,
-      // avatar: image,
-      // birthday,
-      // gender,
-      // sexOrientation,
-      // randomNumber,
+      description,
+      avatar: image,
+      birthday,
+      gender,
+      sexOrientation
     })
 
     console.log("Profile updated!")
@@ -147,13 +147,13 @@ function App() {
 
   return (
     <div className="App">
-      <input placeholder="name" onChange={e => setName(e.target.value)} />
-      <input placeholder="info" onChange={e => setInfo(e.target.value)} />
-      {/* <input placeholder="Profile Image" onChange={e => setImage(e.target.value)} />
+      <input placeholder="Counts" onChange={e => setCounts(parseInt(e.target.value))} />
+      <input placeholder="Name" onChange={e => setName(e.target.value)} />
+      <input placeholder="Description" onChange={e => setDescription(e.target.value)} />
+      <input placeholder="Profile Image" onChange={e => setImage(e.target.value)} />
       <input placeholder="Birthday" onChange={e => setBirthday(e.target.value)} />
       <input placeholder="Gender" onChange={e => setGender(e.target.value)} />
       <input placeholder="Sex Orientation" onChange={e => setSexOrientation(e.target.value)} />
-      <input placeholder="Random Number" onChange={e => setNumber(e.target.value)} /> */}
       <button onClick={updateProfile}>Set Profile</button>
       <button onClick={readProfile}>Read Profile</button>
       <button onClick={connect}>Connect Wallet</button>
@@ -161,14 +161,13 @@ function App() {
       <button onClick={readAddressProfile}>Read Address Profile</button>
 
 
-
+      {counts && <h3>Count: {counts}</h3>}
       {name && <h3>Name: {name}</h3>}
-      {info && <h3>Info: {info}</h3>}
-      {/* {image && <img style={{ width: '400px' }} src={image} />}
+      {description && <h3>Description: {description}</h3>}
+      {image && <img style={{ width: '400px' }} src={image} />}
       {birthday && <h3>Birthday: {birthday}</h3>}
       {gender && <h3>Gender: {gender}</h3>}
       {sexOrientation && <h3>Sex Orientation: {sexOrientation}</h3>}
-      {randomNumber && <h3>Random Number: {randomNumber}</h3>} */}
       {(!info && !name && loaded) && <h4>No profile, please create one...</h4>}
     </div>
   );
