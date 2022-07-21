@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 import { CeramicClient } from '@ceramicnetwork/http-client'
 import { getResolver } from '@ceramicnetwork/3id-did-resolver'
-
 import { EthereumAuthProvider, ThreeIdConnect } from '@3id/connect'
 import { DID } from 'dids'
 import { IDX } from '@ceramicstudio/idx'
@@ -14,7 +13,6 @@ const endpoint = "https://ceramic-clay.3boxlabs.com"
 function App() {
   const [counts, setCounts] = useState('')
   const [name, setName] = useState('')
-  const [info, setInfo] = useState('')
   const [description, setDescription] = useState('')
   const [image, setImage] = useState('')
   const [birthday, setBirthday] = useState('')
@@ -145,6 +143,21 @@ function App() {
     console.log("Profile updated!")
   }
 
+  async function onMultiQuery() {
+    const ceramic = new CeramicClient(endpoint)
+    const streamIdList = [
+      "k2t6wyfsu4pg0l6xxjvfxc49zdcbvlflnwrqf3tlgvws3edsc6s9uy0li9bez9",
+      "k2t6wyfsu4pg203s7g32u1pphk981gnlyo04kvg5cc8rwvin4am6hlfsih6q9v",
+      "k2t6wyfsu4pfzcxv91t3u7a0nyteji7nypo4ua5pd6fsdovl2ve5b8hxac82uu",
+      "k2t6wyfsu4pfzew7qkszzsd4dp345e78azc8yi9gqq0axyyzgwc3z8jljybbzm",
+    ];
+    const queryList = streamIdList.map(sid => { return {streamId: sid} })
+    console.log(queryList)
+    const streamRecord = await ceramic.multiQuery(queryList)
+    console.log(streamRecord)
+    console.log(Object.values(streamRecord).map(stream => stream.content))
+  }
+
   return (
     <div className="App">
       <input placeholder="Counts" onChange={e => setCounts(parseInt(e.target.value))} />
@@ -159,6 +172,7 @@ function App() {
       <button onClick={connect}>Connect Wallet</button>
       <input placeholder="Address to read" onChange={e => setAddressToRead(e.target.value)} />
       <button onClick={readAddressProfile}>Read Address Profile</button>
+      <button onClick={onMultiQuery}>MultiQuery</button>
 
 
       {counts && <h3>Count: {counts}</h3>}
@@ -168,7 +182,7 @@ function App() {
       {birthday && <h3>Birthday: {birthday}</h3>}
       {gender && <h3>Gender: {gender}</h3>}
       {sexOrientation && <h3>Sex Orientation: {sexOrientation}</h3>}
-      {(!info && !name && loaded) && <h4>No profile, please create one...</h4>}
+      {(!description && !name && loaded) && <h4>No profile, please create one...</h4>}
     </div>
   );
 }
